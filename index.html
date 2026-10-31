@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,8 +13,9 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             display: flex;
             height: 100vh;
+            overflow: hidden;
         }
-        /* Barra Lateral Oculta Estilo Navegador */
+        /* Barra Lateral */
         .sidebar {
             width: 60px;
             background-color: #161b22;
@@ -25,16 +25,31 @@
             align-items: center;
             padding-top: 20px;
             gap: 20px;
+            z-index: 10;
         }
         .sidebar-icon {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             background-color: #21262d;
             border-radius: 8px;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+        .sidebar-icon:hover {
+            background-color: #30363d;
         }
         /* Área Principal */
-        .main-content {
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+        }
+        .home-screen {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -54,11 +69,10 @@
             color: #8b949e;
             margin-bottom: 30px;
         }
-        /* Barra de Busca Estilo Lucide */
+        /* Barra de Busca */
         .search-container {
             width: 100%;
             max-width: 600px;
-            position: relative;
         }
         .search-input {
             width: 100%;
@@ -70,13 +84,11 @@
             color: #f0f6fc;
             outline: none;
             box-sizing: border-box;
-            transition: border-color 0.2s;
         }
         .search-input:focus {
             border-color: #58a6ff;
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
         }
-        /* Atalhos Disfarçados embaixo */
+        /* Atalhos */
         .shortcuts {
             display: flex;
             gap: 15px;
@@ -91,37 +103,87 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: background-color 0.2s;
+            cursor: pointer;
         }
         .shortcut-btn:hover {
             background-color: #30363d;
+        }
+        /* Janela do Navegador Oculta */
+        .browser-view {
+            display: none;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
         }
     </style>
 </head>
 <body>
 
+    <!-- Barra lateral com botões de controle -->
     <div class="sidebar">
-        <div class="sidebar-icon"></div>
-        <div class="sidebar-icon"></div>
-        <div class="sidebar-icon"></div>
+        <div class="sidebar-icon" onclick="goHome()" title="Voltar para Home">🏠</div>
+        <div class="sidebar-icon" onclick="openUrl('https://desmos.com')" title="Calculadora">🧮</div>
     </div>
 
-    <div class="main-content">
-        <div class="logo">Lucide</div>
-        <div class="subtitle">Calculadora e Ferramentas Numéricas Avançadas</div>
+    <div class="main-container">
+        <!-- Tela Inicial Disfarçada -->
+        <div class="home-screen" id="homeScreen">
+            <div class="logo">Lucide</div>
+            <div class="subtitle">Calculadora e Ferramentas Numéricas Avançadas</div>
 
-        <div class="search-container">
-            <form action="https://google.com" method="GET" target="_blank">
-                <input type="text" name="q" class="search-input" placeholder="Pesquisar na base de dados escolar..." autocomplete="off">
-            </form>
+            <div class="search-container">
+                <input type="text" id="urlInput" class="search-input" placeholder="Digite o link do site (ex: google.com) e aperte Enter..." onkeypress="checkEnter(event)">
+            </div>
+
+            <div class="shortcuts">
+                <div class="shortcut-btn" onclick="openUrl('https://desmos.com')">Desmos Calc</div>
+                <div class="shortcut-btn" onclick="openUrl('https://wikipedia.org')">Pesquisa Escolar</div>
+                <div class="shortcut-btn" onclick="openUrl('https://pageresource.com')">Jogos Retro</div>
+            </div>
         </div>
 
-        <div class="shortcuts">
-            <a href="https://desmos.com" class="shortcut-btn" target="_blank">Desmos Calc</a>
-            <a href="https://github.com" class="shortcut-btn" target="_blank">Repositório Geral</a>
-            <a href="#" class="shortcut-btn">Aulas Pro</a>
-        </div>
+        <!-- O Navegador Virtual Embutido -->
+        <iframe id="virtualBrowser" class="browser-view"></iframe>
     </div>
+
+    <script>
+        // Função que abre o link na mesma tela
+        function openUrl(url) {
+            const home = document.getElementById('homeScreen');
+            const browser = document.getElementById('virtualBrowser');
+            
+            // Corrige a URL caso o usuário digite sem o protocolo básico
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            
+            home.style.display = 'none'; 
+            browser.style.display = 'block'; 
+            browser.src = url; 
+        }
+
+        // Função do botão de Casinha para limpar a tela e voltar ao Lucide
+        function goHome() {
+            const home = document.getElementById('homeScreen');
+            const browser = document.getElementById('virtualBrowser');
+            
+            browser.style.display = 'none';
+            browser.src = '';
+            home.style.display = 'flex';
+            document.getElementById('urlInput').value = '';
+        }
+
+        // Executa ao pressionar o botão Enter do teclado do celular
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                const inputValue = document.getElementById('urlInput').value;
+                if (inputValue) {
+                    openUrl(inputValue);
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
