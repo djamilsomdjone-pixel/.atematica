@@ -1,1 +1,127 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathAssets - Recursos Escolares</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+        /* Barra Lateral Oculta Estilo Navegador */
+        .sidebar {
+            width: 60px;
+            background-color: #161b22;
+            border-right: 1px solid #30363d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            gap: 20px;
+        }
+        .sidebar-icon {
+            width: 30px;
+            height: 30px;
+            background-color: #21262d;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        /* Área Principal */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #58a6ff;
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: #8b949e;
+            margin-bottom: 30px;
+        }
+        /* Barra de Busca Estilo Lucide */
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 50px;
+            color: #f0f6fc;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+        }
+        /* Atalhos Disfarçados embaixo */
+        .shortcuts {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        .shortcut-btn {
+            padding: 10px 20px;
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .shortcut-btn:hover {
+            background-color: #30363d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-icon"></div>
+        <div class="sidebar-icon"></div>
+        <div class="sidebar-icon"></div>
+    </div>
+
+    <div class="main-content">
+        <div class="logo">Lucide</div>
+        <div class="subtitle">Calculadora e Ferramentas Numéricas Avançadas</div>
+
+        <div class="search-container">
+            <form action="https://google.com" method="GET" target="_blank">
+                <input type="text" name="q" class="search-input" placeholder="Pesquisar na base de dados escolar..." autocomplete="off">
+            </form>
+        </div>
+
+        <div class="shortcuts">
+            <a href="https://desmos.com" class="shortcut-btn" target="_blank">Desmos Calc</a>
+            <a href="https://github.com" class="shortcut-btn" target="_blank">Repositório Geral</a>
+            <a href="#" class="shortcut-btn">Aulas Pro</a>
+        </div>
+    </div>
+
+</body>
+</html>
